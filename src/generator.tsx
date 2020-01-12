@@ -40,6 +40,7 @@ export default function () {
                 fourthDigit
             };
         }
+        
         randomNumber = firstDigit + "" + secondDigit + "" + thirdDigit + "" + fourthDigit;
     }
     return randomNumber;
