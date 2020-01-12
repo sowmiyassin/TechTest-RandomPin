@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import './App.css';
 import GeneratePage from './GeneratePage';
 import SavedPage from './SavedPage';
+
 const App: React.FC = () => {
   return (
     <Router>
@@ -25,4 +26,4 @@ const App: React.FC = () => {
   );
 }
 
-export default App;
+export default connect()(App);
