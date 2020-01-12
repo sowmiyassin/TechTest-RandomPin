@@ -3,8 +3,10 @@ import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import './App.css';
 
-
-export class GeneratePage extends Component<{}> {
+type uniquePinState = {
+    uniquePin: any
+  }
+export class GeneratePage extends Component<{}, uniquePinState> {
     constructor(props: any) {
         super(props);
        
