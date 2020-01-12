@@ -1,25 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import { Tabs, Tab, Nav } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import './App.css';
-
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      
+      <Tabs defaultActiveKey="generate" id="uncontrolled-tab-example" variant="pills">
+        <Tab eventKey="generate" title="Generate">
+         
+        </Tab>
+        <Tab eventKey="saved" title="Saved">
+        
+        </Tab>
+      </Tabs>
+    </Router>
   );
 }
 
