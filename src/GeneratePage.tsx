@@ -13,11 +13,11 @@ export class GeneratePage extends Component<{}, uniquePinState> {
         this.state = {
             uniquePin: 'Click on Generate Button below.'
         }
-       this.onGenerateHandler = this.onGenerateHandler.bind(this);
+        this.onGenerateHandler = this.onGenerateHandler.bind(this);
     }
     onGenerateHandler() {
         let self: any = this;
-        self.setState({uniquePin: unqiuePinsGenerator().join('-')}, function() {
+        self.setState({uniquePin: unqiuePinsGenerator()}, function() {
             self.props.saveAction({
                 name: '',
                 pin: self.state.uniquePin
@@ -26,12 +26,11 @@ export class GeneratePage extends Component<{}, uniquePinState> {
     }
     render() {
         return (
-           
-        <div className="App">
-                 <h2>Generate Unique Pin</h2>
-              <p id="pinDisplay">{this.state.uniquePin}</p>
+            <div className="App">
+                <h2>Generate Unique Pin</h2>
+                <p id="pinDisplay">{this.state.uniquePin}</p>
       <Button variant="primary" onClick={this.onGenerateHandler}>Generate</Button>
-        </div>
+    </div>
         )
     }
 }
