@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import './App.css';
 import { saveAction } from './saveAction';
 type savedPinsState = {
@@ -14,6 +14,10 @@ export class SavedPage extends Component<{}, savedPinsState> {
             savedPins: []
         }
         this.renderPins = this.renderPins.bind(this);
+        this.onDeleteHandler = this.onDeleteHandler.bind(this);
+    }
+    onDeleteHandler(event: any) {
+      console.log(event.target.id);
     }
     UNSAFE_componentWillReceiveProps(nextProps: any) {
         this.setState({savedPins: nextProps.saveReducer.storedPins});
@@ -23,11 +27,12 @@ export class SavedPage extends Component<{}, savedPinsState> {
           <tr key={index}>
             <td>{index + 1}</td>
             <td>{`Pin ${index + 1}`}</td>
-            <td>{rowPin.pin}</td>
+            <td>{rowPin.pin}</td> 
+            <td><Button variant="primary" id={rowPin.pin} onClick={this.onDeleteHandler}>Delete</Button></td>
           </tr>
         )
       }
-      render() {
+    render() {
         return (
             <div className="App">
                 <h2>Saved Pins</h2>
@@ -37,6 +42,7 @@ export class SavedPage extends Component<{}, savedPinsState> {
       <th>#</th>
       <th>Name</th>
       <th>Pin</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
