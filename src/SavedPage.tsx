@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Form } from 'react-bootstrap';
 import './App.css';
 import { deleteAction } from './saveAction';
 type savedPinsState = {
@@ -15,9 +15,14 @@ export class SavedPage extends Component<{deleteAction: any}, savedPinsState> {
         }
         this.renderPins = this.renderPins.bind(this);
         this.onDeleteHandler = this.onDeleteHandler.bind(this);
+        this.onBlurHandler = this.onBlurHandler.bind(this);
     }
     onDeleteHandler(event: any) {
       this.props.deleteAction(event.target.id);
+    }
+    onBlurHandler(event: any) {
+        alert(event.target.value);
+        alert(event.target.id);
     }
     UNSAFE_componentWillReceiveProps(nextProps: any) {
         this.setState({savedPins: nextProps.saveReducer.storedPins});
@@ -26,7 +31,7 @@ export class SavedPage extends Component<{deleteAction: any}, savedPinsState> {
         return (
           <tr key={index}>
             <td>{index + 1}</td>
-            <td>{`Pin ${index + 1}`}</td>
+            <td><Form.Control type="text" id={rowPin.pin} placeholder="Enter name for a PIN." onBlur={this.onBlurHandler} /></td>
             <td>{rowPin.pin}</td> 
             <td><Button variant="primary" id={rowPin.pin} onClick={this.onDeleteHandler}>Delete</Button></td>
           </tr>
