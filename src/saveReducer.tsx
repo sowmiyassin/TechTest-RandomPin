@@ -8,7 +8,7 @@ export default (state = { storedPins: []}, action: any) => {
     }
     break;
    case 'DELETE_ACTION': 
-      let availablePins = state.storedPins.filter((storedpin: any) => (storedpin['pin'] !== action.payload['pin'] && storedpin['name'] !== action.payload['name']));
+      let availablePins = state.storedPins.filter((storedpin: any) => storedpin['pin'] !== action.payload['pin']);
     return {
      storedPins: availablePins
     }
