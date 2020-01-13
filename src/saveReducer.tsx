@@ -8,11 +8,22 @@ export default (state = { storedPins: []}, action: any) => {
     }
     break;
    case 'DELETE_ACTION': 
-      let availablePins = state.storedPins.filter(storedpin => storedpin['pin'] !== action.payload);
+      let availablePins = state.storedPins.filter((storedpin: any) => (storedpin['pin'] !== action.payload['pin'] && storedpin['name'] !== action.payload['name']));
     return {
      storedPins: availablePins
     }
-    break;      
+    break;  
+   case 'UPDATE_ACTION': 
+      let updatePins = state.storedPins.map((storedpin: any) => {
+      if (action.payload['pin'] === storedpin['pin']) {
+          storedpin['name'] = action.payload.name;
+      }
+      return storedpin;
+      });
+    return {
+     storedPins: updatePins
+    }
+    break;         
    default:
     return state
   }

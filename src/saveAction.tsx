@@ -10,3 +10,9 @@ export const deleteAction = (payload: any) => (dispatch: any) => {
         payload
     })
 }
+export const updateAction = (payload: any) => (dispatch: any) => {
+    dispatch({
+        type: 'UPDATE_ACTION',
+        payload
+    })
+}

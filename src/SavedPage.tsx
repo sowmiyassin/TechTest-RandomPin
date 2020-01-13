@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table, Button, Form } from 'react-bootstrap';
 import './App.css';
-import { deleteAction } from './saveAction';
+import { deleteAction, updateAction } from './saveAction';
 type savedPinsState = {
     savedPins: any
   }
-export class SavedPage extends Component<{deleteAction: any}, savedPinsState> {
+export class SavedPage extends Component<{deleteAction: any, updateAction: any }, savedPinsState> {
     constructor(props: any) {
         super(props);
         console.log(JSON.stringify(props));
@@ -18,20 +18,26 @@ export class SavedPage extends Component<{deleteAction: any}, savedPinsState> {
         this.onBlurHandler = this.onBlurHandler.bind(this);
     }
     onDeleteHandler(event: any) {
-      this.props.deleteAction(event.target.id);
+      this.props.deleteAction({
+      pin: event.target.id,
+      name: event.target.name
+      });
     }
     onBlurHandler(event: any) {
-        alert(event.target.value);
-        alert(event.target.id);
+        this.props.updateAction({
+            name: event.target.value,
+            pin: event.target.id
+        });
     }
     UNSAFE_componentWillReceiveProps(nextProps: any) {
+        this.setState({savedPins: []});
         this.setState({savedPins: nextProps.saveReducer.storedPins});
     }
     renderPins(rowPin: any, index: any) {
         return (
           <tr key={index}>
             <td>{index + 1}</td>
-            <td><Form.Control type="text" id={rowPin.pin} placeholder="Enter name for a PIN." onBlur={this.onBlurHandler} /></td>
+            <td>{(rowPin.name && rowPin.name.trim()) ? rowPin.name : <Form.Control type="text" name={rowPin.name} id={rowPin.pin} placeholder="Enter name for a PIN." onBlur={this.onBlurHandler} />}</td>
             <td>{rowPin.pin}</td> 
             <td><Button variant="primary" id={rowPin.pin} onClick={this.onDeleteHandler}>Delete</Button></td>
           </tr>
@@ -63,6 +69,7 @@ const mapStateToProps = (state: {}) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-    deleteAction: (payload: any) => dispatch(deleteAction(payload))
+    deleteAction: (payload: any) => dispatch(deleteAction(payload)),
+    updateAction: (payload: any) => dispatch(updateAction(payload))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(SavedPage);
