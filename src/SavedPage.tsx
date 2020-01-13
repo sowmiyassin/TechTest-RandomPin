@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table, Button } from 'react-bootstrap';
 import './App.css';
-import { saveAction } from './saveAction';
+import { deleteAction } from './saveAction';
 type savedPinsState = {
     savedPins: any
   }
-export class SavedPage extends Component<{}, savedPinsState> {
+export class SavedPage extends Component<{deleteAction: any}, savedPinsState> {
     constructor(props: any) {
         super(props);
         console.log(JSON.stringify(props));
@@ -17,7 +17,7 @@ export class SavedPage extends Component<{}, savedPinsState> {
         this.onDeleteHandler = this.onDeleteHandler.bind(this);
     }
     onDeleteHandler(event: any) {
-      console.log(event.target.id);
+      this.props.deleteAction(event.target.id);
     }
     UNSAFE_componentWillReceiveProps(nextProps: any) {
         this.setState({savedPins: nextProps.saveReducer.storedPins});
@@ -58,6 +58,6 @@ const mapStateToProps = (state: {}) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-    saveAction: (payload: any) => dispatch(saveAction(payload))
+    deleteAction: (payload: any) => dispatch(deleteAction(payload))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(SavedPage);
