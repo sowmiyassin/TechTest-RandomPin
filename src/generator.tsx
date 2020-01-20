@@ -60,13 +60,26 @@ function validatePin(pinValue: any) {
   }
 }
 
-function fourDigitRandomizer(): any {
-  var fourDigitPin = Math.floor(1000 + Math.random() * 9000);
-  if(validatePin(fourDigitPin) == true) {
-    return fourDigitRandomizer();
-  } else {
-    return fourDigitPin;
-  }
+function fourDigitRandomizer(n=4): any {
+    var add = 1, max = 12 - add;   
+
+    if ( n > max ) {
+            return fourDigitRandomizer(max) + fourDigitRandomizer(n - max);
+    }
+
+    max        = Math.pow(10, n+add);
+    var min    = max/10; // Math.pow(10, n) basically
+    var number = Math.floor( Math.random() * (max - min + 1) ) + min;
+
+    return ("" + number).substring(add); 
+
+
+//   var fourDigitPin = Math.floor(1000 + Math.random() * 9000);
+//   if(validatePin(fourDigitPin) == true) {
+//     return fourDigitRandomizer();
+//   } else {
+//     return fourDigitPin;
+//   }
 }
 
 export default function () {
