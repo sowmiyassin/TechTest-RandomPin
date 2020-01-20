@@ -60,26 +60,30 @@ function validatePin(pinValue: any) {
   }
 }
 
-function fourDigitRandomizer(n=4): any {
+function Randomizer(pinLength: any):any {
     var add = 1, max = 12 - add;   
 
-    if ( n > max ) {
-            return fourDigitRandomizer(max) + fourDigitRandomizer(n - max);
+    if ( pinLength > max ) {
+            return Randomizer(max) + Randomizer(pinLength - max);
     }
 
-    max        = Math.pow(10, n+add);
+    max        = Math.pow(10, pinLength+add);
     var min    = max/10; // Math.pow(10, n) basically
     var number = Math.floor( Math.random() * (max - min + 1) ) + min;
 
     return ("" + number).substring(add); 
+  }
+
+function fourDigitRandomizer(): any {
+    var fourDigitPin= Randomizer(4);
 
 
 //   var fourDigitPin = Math.floor(1000 + Math.random() * 9000);
-//   if(validatePin(fourDigitPin) == true) {
-//     return fourDigitRandomizer();
-//   } else {
-//     return fourDigitPin;
-//   }
+  if(validatePin(fourDigitPin) == true) {
+    return fourDigitRandomizer();
+  } else {
+    return fourDigitPin;
+  }
 }
 
 export default function () {
